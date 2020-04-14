@@ -2,38 +2,8 @@ import os, time, pyautogui
 import selenium
 
 from selenium import webdriver
+from location_reference import country_map
 
-def country_map():
-    code_map = dict()
-    code_map["usa"] = 'US'
-    code_map["uk"] = 'UK'
-    code_map["japan"] = 'JP'
-    code_map["spain"]  = "ES"
-    code_map["canada"] = 'CA'
-    code_map["germany"] = 'DE'
-    code_map["italy"] = 'IT'
-    code_map["france"] = 'FR'
-    code_map["australia"] = 'AU'
-    code_map["taiwan"]  = "TW"
-    code_map["netherlands"]  = "NL"
-    code_map["brasil"] = 'BR'
-    code_map["turkey"]  = "TR"
-    code_map["belgium"]  = "BE"
-    code_map["greece"]  = "GR"
-    code_map["india"] = 'IN'
-    code_map["mexico"]  = "MX"
-    code_map["denmark"]  = "DK"
-    code_map["argentina"]  = "AR"
-    code_map["switzerland"]  = "CH"
-    code_map["chile"]  = "CL"
-    code_map["austria"]  = "AT"
-    code_map["korea"] = 'KR'
-    code_map["ireland"]  = "IE"
-    code_map["colombia"]  = "CO"
-    code_map["poland"]  = "PL"
-    code_map["portugal"]  = "PT"
-    code_map["pakistan"] = 'PK'
-    return code_map
 
 # STATIC SETTINGS
 DPI = 125 # Scaling factor of texts and apps in display settings
