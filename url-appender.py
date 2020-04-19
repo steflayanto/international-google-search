@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import messagebox as mb
 from location_reference import country_map
 
+
 # Displays a pop-up error box with a custom message
 def error(message):
     mb.showerror("Error", message)

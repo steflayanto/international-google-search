@@ -144,11 +144,13 @@ class Location:
 
 
 class LocationSearcher:
-    def __init__(self, filename):
+    def __init__(self, filename, limit=9999):
         self.id_to_loc = dict()
         # self.name_to_id = dict()
         # self.c_name_to_id = dict()
         self.names_to_id = dict()
+        self.limit = limit
+
         with open(filename, newline='\n', encoding="utf8") as csvfile:
             reader = csv.reader(csvfile)
             try:
@@ -172,8 +174,10 @@ class LocationSearcher:
     def search(self, input):
         matches = []
         input = input.lower()
+        size = 0
         for name in self.names_to_id.keys():
-            if input in name.lower():
+            if size < self.limit and input in name.lower():
+                size += 1
                 if name.lower().startswith(input):
                     matches.insert(0, name)
                 else:
