@@ -20,6 +20,10 @@ def search_command(search_entry, loc_entry, searcher):
     print(url.url())
     webbrowser.open_new(url.url())
 
+def open_translate_command():
+    print("Opening Translate")
+    webbrowser.open_new(r'https://translate.google.com/?sl=auto&tl=en')
+
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -32,10 +36,25 @@ def resource_path(relative_path):
 
 
 file_path = resource_path("geotargets-2019-02-11.csv")
-
+window_shape = (400, 400)
 searcher = LocationSearcher(file_path, limit=40)
 
-window_shape = (300, 600)
+instructions_str = """
+TO SEARCH LOCAL ENGLISH SOURCES FROM TARGET LOCATION:
+1. Select target country
+2. Type search query in English
+3. Click "Search"
+
+
+TO SEARCH LOCAL LANGUAGE SOURCES FROM TARGET LOCATION (RECOMMENDED):
+1. Select target country
+2. Click "Open Translate" to open up a google translate window
+3. Translate your search query into a native language of the target country
+4. Enter in the translated search results then click "Search"
+5. Click on a result in the local language, then copy the URL of its website
+6. Click on "Open Translate", then paste copied URL into translate box
+7. Click on the link created in the translate section"""
+
 query = ""
 
 window = tk.Tk()
@@ -46,6 +65,8 @@ search_title = tk.Label(window, text="Enter Search Query:")
 loc_title = tk.Label(window, text="Enter Location:")
 search = tk.Entry(window, exportselection=0, textvariable=query)
 
+instructions = tk.Label(window, text=instructions_str, justify='left', wraplength=window_shape[0])#, width=window_shape[0])
+
 names = [] #list(searcher.names_to_id.keys())
 
 
@@ -53,8 +74,8 @@ location_entry = AutocompleteEntry(names, searcher, window)
 
 search_cmd = partial(search_command, search, location_entry, searcher)
 
-button = tk.Button(window, text="Search", command=search_cmd)
-# button1 = tk.Button(window, text="Get", command=location_entry.var.get())
+search_button = tk.Button(window, text="Search", command=search_cmd)
+translate_button = tk.Button(window, text="Open Translate", command=open_translate_command)
 
 tk.Label(window, text=query).grid(column=0, row=2)
 title1.grid(column=0, row=0)
@@ -62,7 +83,8 @@ search_title.grid(column=0, row=1)
 search.grid(column=1, row=1)
 loc_title.grid(column=0, row=3)
 location_entry.grid(column=1, row=3)
-button.grid(column=0, row=5)
-# button1.grid(column=1, row=3)
+search_button.grid(column=1, row=6)
+translate_button.grid(column=0, row=6)
+instructions.grid(row=8, columnspan=2)
 
 window.mainloop()
