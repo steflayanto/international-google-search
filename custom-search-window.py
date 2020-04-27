@@ -1,3 +1,4 @@
+import sys, os
 import tkinter as tk
 from functools import partial
 
@@ -5,6 +6,8 @@ from tkinter import messagebox as mb
 from location_reference import *
 from url_builder import *
 from autocomplete_entry import AutocompleteEntry
+
+# pyinstaller --onefile --noconsole --add-data="geotargets-2019-02-11.csv;." custom-search-window.py
 
 # Displays a pop-up error box with a custom message
 def error(message):
@@ -17,7 +20,20 @@ def search_command(search_entry, loc_entry, searcher):
     print(url.url())
     webbrowser.open_new(url.url())
 
-searcher = LocationSearcher("geotargets-2019-02-11.csv", limit=40)
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
+file_path = resource_path("geotargets-2019-02-11.csv")
+
+searcher = LocationSearcher(file_path, limit=40)
 
 window_shape = (300, 600)
 query = ""
@@ -31,7 +47,6 @@ loc_title = tk.Label(window, text="Enter Location:")
 search = tk.Entry(window, exportselection=0, textvariable=query)
 
 names = [] #list(searcher.names_to_id.keys())
-
 
 
 location_entry = AutocompleteEntry(names, searcher, window)
