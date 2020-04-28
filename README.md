@@ -35,3 +35,7 @@ All code was written and tested in Python 3.7.
 * pyautogui
 * Files already included in repository
     * location_reference.py
+
+
+# Export Instructions
+## pyinstaller --onefile --noconsole --add-data="geotargets-2019-02-11.csv;." custom-search-window.py
