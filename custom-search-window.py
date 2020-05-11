@@ -7,6 +7,8 @@ from location_reference import *
 from url_builder import *
 from autocomplete_entry import AutocompleteEntry
 
+import subprocess
+
 # pyinstaller --onefile --noconsole --add-data="geotargets-2019-02-11.csv;." custom-search-window.py
 
 # Displays a pop-up error box with a custom message
@@ -18,11 +20,13 @@ def search_command(search_entry, loc_entry, searcher):
     loc = searcher.get_loc_by_id(searcher.get_id(loc_entry.get_str()))
     url = UrlBuilder(search_entry.get(), loc)
     print(url.url())
-    webbrowser.open_new(url.url())
+    # webbrowser.open_new(url.url())
+    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "-incognito", url.url()])
 
 def open_translate_command():
     print("Opening Translate")
-    webbrowser.open_new(r'https://translate.google.com/?sl=auto&tl=en')
+    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "-incognito", r'https://translate.google.com/?sl=auto&tl=en'])
+    # webbrowser.open_new(r'https://translate.google.com/?sl=auto&tl=en')
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -77,14 +81,15 @@ search_cmd = partial(search_command, search, location_entry, searcher)
 search_button = tk.Button(window, text="Search", command=search_cmd)
 translate_button = tk.Button(window, text="Open Translate", command=open_translate_command)
 
-tk.Label(window, text=query).grid(column=0, row=2)
+# tk.Label(window, text=query).grid(column=0, row=2)
 title1.grid(column=0, row=0)
+
 search_title.grid(column=0, row=1)
-search.grid(column=1, row=1)
-loc_title.grid(column=0, row=3)
-location_entry.grid(column=1, row=3)
-search_button.grid(column=1, row=6)
-translate_button.grid(column=0, row=6)
+search.grid(column=0, row=2)
+loc_title.grid(column=1, row=1)
+location_entry.grid(column=1, row=2)
+search_button.grid(column=0, row=6)
+translate_button.grid(column=0, row=7)
 instructions.grid(row=8, columnspan=2)
 
 window.mainloop()
