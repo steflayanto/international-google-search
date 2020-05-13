@@ -51,4 +51,5 @@ All code was written and tested in Python 3.7.
 
 1. Install pyinstaller using `pip install PyInstaller`
 1. Navigate to repository
-1. Run command `pyinstaller --onefile --noconsole --add-data="geotargets-2019-02-11.csv;." custom-search-window.py`
+1. Run command `pyinstaller --onefile --noconsole --add-data="geotargets-2019-02-11.csv;." custom-search-window.py` (For Mac, in the add-data argument use : instead of ; )
+1. Executable should appear in the 'dist' directory
