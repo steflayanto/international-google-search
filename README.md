@@ -25,7 +25,7 @@ First attempt at a custom search. Uses the exact same backend URL modification a
 All code was written and tested in Python 3.7.
 
 ### custom-search-window
-
+* pyperclip
 * Files already included in repository
   * autocomplete_entry.py (taken and modified from <http://code.activestate.com/recipes/578253-an-entry-with-autocompletion-for-the-tkinter-gui/>)
   * location_reference.py

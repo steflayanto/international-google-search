@@ -7,7 +7,7 @@ from location_reference import *
 from url_builder import *
 from autocomplete_entry import AutocompleteEntry
 
-import subprocess
+import subprocess, pyperclip
 
 # pyinstaller --onefile --noconsole --add-data="geotargets-2019-02-11.csv;." custom-search-window.py
 
@@ -21,7 +21,12 @@ def search_command(search_entry, loc_entry, searcher):
     url = UrlBuilder(search_entry.get(), loc)
     print(url.url())
     # webbrowser.open_new(url.url())
-    subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "-incognito", url.url()])
+    # subprocess.Popen(["open -a /Applications/Google\ Chrome.app", "-incognito", url.url()])
+    try:
+        subprocess.Popen(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "-incognito", url.url()])
+    except:
+        # webbrowser.open_new(url.url())
+        pyperclip.copy(url.url())
 
 def open_translate_command():
     print("Opening Translate")
@@ -40,7 +45,7 @@ def resource_path(relative_path):
 
 
 file_path = resource_path("geotargets-2019-02-11.csv")
-window_shape = (400, 400)
+window_shape = (475, 500)
 searcher = LocationSearcher(file_path, limit=40)
 
 instructions_str = """
